@@ -15,7 +15,6 @@ package common
 
 import (
 	"context"
-
 	trivy "github.com/aquasecurity/trivy-operator/pkg/apis/aquasecurity/v1alpha1"
 	openapi_v2 "github.com/google/gnostic/openapiv2"
 	"github.com/k8sgpt-ai/k8sgpt/pkg/ai"
@@ -32,13 +31,14 @@ type IAnalyzer interface {
 }
 
 type Analyzer struct {
-	Client        *kubernetes.Client
-	Context       context.Context
-	Namespace     string
-	AIClient      ai.IAI
-	PreAnalysis   map[string]PreAnalysis
-	Results       []Result
-	OpenapiSchema *openapi_v2.Document
+	Client         *kubernetes.Client
+	Context        context.Context
+	Namespace      string
+	AIClient       ai.IAI
+	PreAnalysis    map[string]PreAnalysis
+	Results        []Result
+	OpenapiSchema  *openapi_v2.Document
+	LabelSelectors string
 }
 
 type PreAnalysis struct {

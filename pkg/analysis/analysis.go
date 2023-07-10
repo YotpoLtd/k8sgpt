@@ -37,6 +37,7 @@ import (
 type Analysis struct {
 	Context            context.Context
 	Filters            []string
+	LabelSelectors     string
 	Client             *kubernetes.Client
 	AIClient           ai.IAI
 	Results            []common.Result
@@ -65,7 +66,7 @@ type JsonOutput struct {
 	Results  []common.Result `json:"results"`
 }
 
-func NewAnalysis(backend string, language string, filters []string, namespace string, noCache bool, explain bool, maxConcurrency int, withDoc bool) (*Analysis, error) {
+func NewAnalysis(backend string, language string, filters []string, namespace string, labelSelectors string, noCache bool, explain bool, maxConcurrency int, withDoc bool) (*Analysis, error) {
 	var configAI ai.AIConfiguration
 	err := viper.UnmarshalKey("ai", &configAI)
 	if err != nil {
@@ -124,6 +125,7 @@ func NewAnalysis(backend string, language string, filters []string, namespace st
 		Context:            ctx,
 		Filters:            filters,
 		Client:             client,
+		LabelSelectors:     labelSelectors,
 		AIClient:           aiClient,
 		Namespace:          namespace,
 		Cache:              cache.New(noCache, remoteCacheEnabled),

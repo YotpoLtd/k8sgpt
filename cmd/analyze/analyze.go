@@ -33,6 +33,7 @@ var (
 	anonymize      bool
 	maxConcurrency int
 	withDoc        bool
+	labelSelectors string
 )
 
 // AnalyzeCmd represents the problems command
@@ -46,7 +47,7 @@ var AnalyzeCmd = &cobra.Command{
 
 		// AnalysisResult configuration
 		config, err := analysis.NewAnalysis(backend,
-			language, filters, namespace, nocache, explain, maxConcurrency, withDoc)
+			language, filters, namespace, labelSelectors, nocache, explain, maxConcurrency, withDoc)
 		if err != nil {
 			color.Red("Error: %v", err)
 			os.Exit(1)
@@ -94,4 +95,6 @@ func init() {
 	AnalyzeCmd.Flags().IntVarP(&maxConcurrency, "max-concurrency", "m", 10, "Maximum number of concurrent requests to the Kubernetes API server")
 	// kubernetes doc flag
 	AnalyzeCmd.Flags().BoolVarP(&withDoc, "with-doc", "d", false, "Give me the official documentation of the involved field")
+	AnalyzeCmd.Flags().StringVarP(&labelSelectors, "labelSelector", "l", "{}", "json with labelSelector definitions")
+
 }
