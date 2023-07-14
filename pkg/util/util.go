@@ -191,12 +191,3 @@ func EnsureDirExists(dir string) error {
 
 	return err
 }
-
-//func ConvertStringToListOptions(listOptions string) (metav1.ListOptions, error) {
-//	var listOptionsType metav1.ListOptions
-//	err := json.Unmarshal([]byte(listOptions), &listOptions)
-//	if err != nil {
-//		return metav1.ListOptions{}, fmt.Errorf("failed to convert string to ListOptions: %v", err)
-//	}
-//	return listOptionsType, nil
-//}
