@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package schema.v1;
+
+option go_package = "schema/service/v1";
+
+message AnalyzeRequest {
+  string backend = 1;
+  string namespace = 2;
+  bool explain = 3;
+  bool anonymize = 4;
+  bool nocache = 5;
+  string language = 6;
+  int32 max_concurrency = 7;
+  string output = 8;
+  repeated string filters = 9;
+  string listoptions = 10;
+}
+
+message SensitiveData {
+  string unmasked = 1;
+  string masked = 2;
+}
+
+message ErrorDetail {
+  string text = 1;
+  repeated SensitiveData sensitive = 2;
+}
+
+message Result {
+  string kind = 1;
+  string name = 2;
+  repeated ErrorDetail error = 3;
+  string details = 4;
+  string parent_object = 5;
+}
+
+message AnalyzeResponse {
+  Error error = 1;
+  repeated string errors = 2;
+  string status = 3;
+  int32 problems = 4;
+  repeated Result results = 5;
+}
+
+message Error {
+  string message = 1;
+  int32 code = 2;
+}
+
+message Analysis {
+  repeated AnalysisItem analysis = 1;
+}
+
+message AnalysisItem {
+  string name = 1;
+  string description = 2;
+}
+
+message AddConfigRequest {
+  Cache cache = 1;
+}
+
+message AddConfigResponse {
+  string status = 1;
+}
+
+message RemoveConfigRequest {
+  Cache cache = 1;
+}
+
+message RemoveConfigResponse {
+  string status = 1;
+}
+
+message Cache {
+  string region = 1;
+  string bucket_name = 2;
+}
+
+service ServerService {
+  rpc Analyze(AnalyzeRequest) returns (AnalyzeResponse) {}
+  rpc AddConfig(AddConfigRequest) returns (AddConfigResponse) {}
+  rpc RemoveConfig(RemoveConfigRequest) returns (RemoveConfigResponse) {}
+}

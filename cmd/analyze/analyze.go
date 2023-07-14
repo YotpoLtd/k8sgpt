@@ -14,7 +14,9 @@ limitations under the License.
 package analyze
 
 import (
+	"encoding/json"
 	"fmt"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"os"
 
 	"github.com/fatih/color"
@@ -33,7 +35,7 @@ var (
 	anonymize      bool
 	maxConcurrency int
 	withDoc        bool
-	labelSelectors string
+	listOptions    string
 )
 
 // AnalyzeCmd represents the problems command
@@ -46,8 +48,15 @@ var AnalyzeCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// AnalysisResult configuration
+		var listopt v1.ListOptions
+		err := json.Unmarshal([]byte(listOptions), &listopt)
+		if err != nil {
+			color.Red("Error: %v", err)
+			os.Exit(1)
+		}
+
 		config, err := analysis.NewAnalysis(backend,
-			language, filters, namespace, labelSelectors, nocache, explain, maxConcurrency, withDoc)
+			language, filters, namespace, listopt, nocache, explain, maxConcurrency, withDoc)
 		if err != nil {
 			color.Red("Error: %v", err)
 			os.Exit(1)
@@ -95,6 +104,6 @@ func init() {
 	AnalyzeCmd.Flags().IntVarP(&maxConcurrency, "max-concurrency", "m", 10, "Maximum number of concurrent requests to the Kubernetes API server")
 	// kubernetes doc flag
 	AnalyzeCmd.Flags().BoolVarP(&withDoc, "with-doc", "d", false, "Give me the official documentation of the involved field")
-	AnalyzeCmd.Flags().StringVarP(&labelSelectors, "labelSelector", "l", "{}", "json with labelSelector definitions")
-
+	// kubernetes listOptions type
+	AnalyzeCmd.Flags().StringVarP(&listOptions, "listOptions", "l", "{}", "json with listOptions definitions")
 }

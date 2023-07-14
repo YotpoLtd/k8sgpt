@@ -17,6 +17,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"os"
 	"reflect"
 	"strings"
@@ -37,7 +38,7 @@ import (
 type Analysis struct {
 	Context            context.Context
 	Filters            []string
-	LabelSelectors     string
+	ListOptions        v1.ListOptions
 	Client             *kubernetes.Client
 	AIClient           ai.IAI
 	Results            []common.Result
@@ -66,7 +67,7 @@ type JsonOutput struct {
 	Results  []common.Result `json:"results"`
 }
 
-func NewAnalysis(backend string, language string, filters []string, namespace string, labelSelectors string, noCache bool, explain bool, maxConcurrency int, withDoc bool) (*Analysis, error) {
+func NewAnalysis(backend string, language string, filters []string, namespace string, listoptions v1.ListOptions, noCache bool, explain bool, maxConcurrency int, withDoc bool) (*Analysis, error) {
 	var configAI ai.AIConfiguration
 	err := viper.UnmarshalKey("ai", &configAI)
 	if err != nil {
@@ -125,7 +126,7 @@ func NewAnalysis(backend string, language string, filters []string, namespace st
 		Context:            ctx,
 		Filters:            filters,
 		Client:             client,
-		LabelSelectors:     labelSelectors,
+		ListOptions:        listoptions,
 		AIClient:           aiClient,
 		Namespace:          namespace,
 		Cache:              cache.New(noCache, remoteCacheEnabled),

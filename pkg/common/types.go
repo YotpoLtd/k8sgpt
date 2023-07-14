@@ -24,6 +24,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	networkv1 "k8s.io/api/networking/v1"
 	policyv1 "k8s.io/api/policy/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 type IAnalyzer interface {
@@ -31,14 +32,14 @@ type IAnalyzer interface {
 }
 
 type Analyzer struct {
-	Client         *kubernetes.Client
-	Context        context.Context
-	Namespace      string
-	AIClient       ai.IAI
-	PreAnalysis    map[string]PreAnalysis
-	Results        []Result
-	OpenapiSchema  *openapi_v2.Document
-	LabelSelectors string
+	Client        *kubernetes.Client
+	Context       context.Context
+	Namespace     string
+	AIClient      ai.IAI
+	PreAnalysis   map[string]PreAnalysis
+	Results       []Result
+	OpenapiSchema *openapi_v2.Document
+	ListOptions   metav1.ListOptions
 }
 
 type PreAnalysis struct {
