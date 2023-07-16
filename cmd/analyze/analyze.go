@@ -105,5 +105,5 @@ func init() {
 	// kubernetes doc flag
 	AnalyzeCmd.Flags().BoolVarP(&withDoc, "with-doc", "d", false, "Give me the official documentation of the involved field")
 	// kubernetes listOptions type
-	AnalyzeCmd.Flags().StringVarP(&listOptions, "listOptions", "l", "{}", "json with listOptions definitions")
+	AnalyzeCmd.Flags().StringVarP(&listOptions, "listOptions", "p", "{}", "json with listOptions definitions")
 }
