@@ -4,8 +4,9 @@ import (
 	"context"
 	"errors"
 
-	schemav1 "buf.build/gen/go/k8sgpt-ai/k8sgpt/protocolbuffers/go/schema/v1"
 	"github.com/k8sgpt-ai/k8sgpt/pkg/cache"
+	//schemav1 "buf.build/gen/go/k8sgpt-ai/k8sgpt/protocolbuffers/go/schema/v1"
+	schemav1 "github.com/k8sgpt-ai/k8sgpt/schema/v1"
 )
 
 func (h *handler) AddConfig(ctx context.Context, i *schemav1.AddConfigRequest) (*schemav1.AddConfigResponse, error,

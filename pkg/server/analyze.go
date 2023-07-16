@@ -4,9 +4,8 @@ import (
 	"context"
 	json "encoding/json"
 	"github.com/k8sgpt-ai/k8sgpt/pkg/analysis"
+	schemav1 "github.com/k8sgpt-ai/k8sgpt/schema/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	//schemav1 "buf.build/gen/go/k8sgpt-ai/k8sgpt/protocolbuffers/go/schema/v1"
-	schemav1 "github.com/k8sgpt-ai/k8sgpt/schema/service/v1"
 )
 
 func (h *handler) Analyze(ctx context.Context, i *schemav1.AnalyzeRequest) (

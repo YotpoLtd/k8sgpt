@@ -17,14 +17,13 @@ import (
 	json "encoding/json"
 	"errors"
 	"fmt"
+	rpc "github.com/k8sgpt-ai/k8sgpt/schema/v1"
 	"net"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 
-	//rpc "buf.build/gen/go/k8sgpt-ai/k8sgpt/grpc/go/schema/v1/schemav1grpc"
-	rpc "github.com/k8sgpt-ai/k8sgpt/schema/server/v1"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
 
