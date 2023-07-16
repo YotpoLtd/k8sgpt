@@ -1,4 +1,4 @@
-/# Contributing
+# Contributing
 We're happy that you want to contribute to this project. Please read the sections to make the process as smooth as possible.
 
 ## Requirements
