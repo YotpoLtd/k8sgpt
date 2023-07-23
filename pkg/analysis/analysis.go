@@ -157,6 +157,7 @@ func (a *Analysis) RunAnalysis() {
 		Client:        a.Client,
 		Context:       a.Context,
 		Namespace:     a.Namespace,
+		ListOptions:   a.ListOptions,
 		AIClient:      a.AIClient,
 		OpenapiSchema: openapiSchema,
 	}
